@@ -1,0 +1,17 @@
+kind: service
+apiVersion: v1
+metadata:
+  name: frontend
+spec:
+  selector:
+    app: myapp
+  ports:
+  - name: nginx-service
+    port: 80          # Service Port
+    targetPort: 80    # Container Port
+    protocol: TCP
+
+# ports:
+#   - port: 8080         # Like in docker  `-p 8080:80` (Service exposed inside cluster)
+#     targetPort: 80     # Like  in docker `80` (Container's internal port)
+#     nodePort: 30007    # Like  in docker `-p 30007:80` (External access on EC2)
