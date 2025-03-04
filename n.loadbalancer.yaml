@@ -1,0 +1,25 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: load-balancer
+spec:
+  type: LoadBalancer
+  selector:
+    project: expense
+    environment: dev
+  ports:
+  - name: nginx-service
+    port: 80          # Service Port , this is for other containers to communicate with nginx container
+    targetPort: 80    # Container Port
+    protocol: TCP
+
+
+# ports:
+#   - port: 8080         # Like in docker  `-p 8080:80` (Service exposed inside cluster)
+#     targetPort: 80     # Like  in docker `80` (Container's internal port)
+#     nodePort: 30007    # Like  in docker `-p 30007:80` (External access on EC2)
+
+
+# selector:               # This is the label of the pod to which this service will route the traffic
+#     project: expense    # ಅಂದ್ರೆ ನಾವು ಯಾವ pod ಗೆ ಟ್ರಾಫಿಕ್ ಅನ್ನು ಕಳುಹಿಸಬೇಕು ಅಂತ  pod name ಹೇಳದೇ label ಮೂಲಕ ಹೇಳುತ್ತಿದ್ದೇವೆ.
+#     environment: dev
