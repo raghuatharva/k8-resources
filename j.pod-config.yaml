@@ -25,7 +25,7 @@ spec:
         cpu: "500m"
     envFrom: 
        - configMapRef:
-          name: raghu_data    #configmap name
+          name: raghu-data    #configmap name
          
 
 # second way
