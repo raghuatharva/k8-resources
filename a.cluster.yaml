@@ -1,0 +1,13 @@
+apiversion: v1
+kind: Clusterconfig
+
+metadata:
+  name: first-cluster
+  region: ap-south-1
+
+managednodegroups:
+    - name: expense
+      instancetype: t2.micro
+      desiredcapacity: 3
+      spot: true
+      
