@@ -2,7 +2,7 @@ apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
-  name: first-cluster
+  name: Ist-cluster
   region: ap-south-1
 
 managedNodeGroups:
