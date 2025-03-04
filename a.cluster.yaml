@@ -1,13 +1,12 @@
-apiversion: eksctl.io/v1alpha5
+apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
 metadata:
   name: first-cluster
   region: ap-south-1
 
-managednodegroups:
-    - name: expense
-      instancetype: t2.micro
-      desiredcapacity: 3
-      spot: true
-      
+managedNodeGroups:
+  - name: expense
+    instanceType: t2.micro
+    desiredCapacity: 3
+    spot: true
