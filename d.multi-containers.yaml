@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  name: nginx_almalinux
+  name: nginx.almalinux
   namespace: expense
 spec:
   containers:
