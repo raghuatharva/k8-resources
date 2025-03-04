@@ -1,5 +1,5 @@
 apiversion: v1
-kind: Clusterconfig
+kind: ClusterConfig
 
 metadata:
   name: first-cluster
