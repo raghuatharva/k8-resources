@@ -5,5 +5,8 @@ metadata:
   namespace: expense
 spec:
   containers:
-  - name: front
+  - name: frontend
     image: nginx     # docker run -d --name frontend nginx
+  - name: logs
+    image: almalinux:9
+    command: ["sleep", "1000"]
