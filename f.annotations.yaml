@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+  annotations:
+      image_registry: "https://hub.docker.com/"
+      buildURL: "https://jenkins.joindevops.com/expense/backend/build/67"
+spec:
+  containers:
+  - name: frontend
+    image: nginx     # docker run -d --name frontend nginx

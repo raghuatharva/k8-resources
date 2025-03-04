@@ -1,0 +1,63 @@
+# configmap is nothing but variables.tf in terraform, what they do store the variables 
+# we can use them in the pod file as env variables
+
+#linking the configmap to the pod file - 
+
+# Ist way
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx2
+  namespace: expense
+  labels:
+      project: expense
+      environment: dev
+spec:
+  containers:
+  - name: frontend
+    image: nginx     # docker run -d --name frontend nginx
+    resources:
+      requests:
+        memory: "64Mi"  #soft limit 64 megabytes
+        cpu: "250m"
+      limits:
+        memory: "128Mi" #hard limit 128 megabytes
+        cpu: "500m"
+    envFrom: 
+       - configMapRef:
+          name: raghu_data    #configmap name
+         
+
+# second way
+
+# apiVersion: v1
+# kind: Pod
+# metadata:
+#   name: nginx1
+#   namespace: expense
+#   labels:
+#       project: expense
+#       environment: dev
+# spec:
+#   containers:
+#   - name: frontend
+#     image: nginx     # docker run -d --name frontend nginx
+#     resources:
+#       requests:
+#         memory: "64Mi"  #soft limit 64 megabytes
+#         cpu: "250m"
+#       limits:
+#         memory: "128Mi" #hard limit 128 megabytes
+#         cpu: "500m"
+#     env: 
+#     - name: course
+#       valueFrom:
+#         configMapKeyRef:
+#           name: raghu_data    #configmap name
+#           key: course         #key in the configmap
+        
+
+
+        
+
