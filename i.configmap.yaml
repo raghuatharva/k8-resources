@@ -6,9 +6,9 @@ metadata:
   labels:
       project: expense
       environment: dev
-  data: 
-    course: k8s
-    trainer: OPQ Tech 
+data: 
+     course: k8s
+     trainer: OPQ Tech 
 
 
 
