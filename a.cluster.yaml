@@ -11,10 +11,7 @@ managedNodeGroups:
     instanceType: m5a.large
     desiredCapacity: 3
     spot: true
-    bootstrapArguments: "--use-max-pods false --max-pods=110"
-    # preBootstrapCommands:
-    #   - "/etc/eks/bootstrap.sh --max-pods 110 ${ClusterName}"
-   # overrideBootstrapCommand: "/etc/eks/bootstrap.sh --max-pods 110 ${ClusterName}"
+  
       
 
 # COMMAND TO DELETE RESOURCES: aws cloudformation delete-stack --stack-name eksctl-Ist-cluster-cluster
@@ -26,9 +23,9 @@ managedNodeGroups:
 
 
 
-  # by default, only 4 pods were created in each node , that were not sufficient 
+  # by default for t2.micro , only 4 pods were created in each node , that were not sufficient 
   # since by default some kubernates related nodes already running , 
-  #  so we are increasing the number of pods to 110
+  #  so we are increasing the number of pods to 50
 
 #   On EKS nodes, the /etc/eks/bootstrap.sh script is responsible for initializing the node.
 #    This script generates or updates the /etc/kubernetes/kubelet-config.json file with the necessary configurations.
