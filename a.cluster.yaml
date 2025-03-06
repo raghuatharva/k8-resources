@@ -1,3 +1,4 @@
+
 apiVersion: eksctl.io/v1alpha5
 kind: ClusterConfig
 
@@ -10,3 +11,32 @@ managedNodeGroups:
     instanceType: t2.micro
     desiredCapacity: 3
     spot: true
+    overrideBootstrapCommand: |
+      /etc/eks/bootstrap.sh --max-pods 110 ${ClusterName}
+
+  # by default, only 4 pods were created in each node , that were not sufficient 
+  # since by default some kubernates related nodes already running , 
+  #  so we are increasing the number of pods to 110
+
+#   On EKS nodes, the /etc/eks/bootstrap.sh script is responsible for initializing the node.
+#    This script generates or updates the /etc/kubernetes/kubelet-config.json file with the necessary configurations.
+
+#   Using OverrideBootstrapCommand:
+#   When you use the overrideBootstrapCommand in your eksctl ClusterConfig,
+#  you're effectively telling the bootstrap script to use specific flags (like --max-pods 110).
+#   This means that during startup, the bootstrap script configures the kubelet with your 
+#   desired maxPods value, and that configuration is written into /etc/kubernetes/kubelet-config.json.
+
+
+# apiVersion: eksctl.io/v1alpha5
+# kind: ClusterConfig
+
+# metadata:
+#   name: Ist-cluster
+#   region: ap-south-1
+
+# managedNodeGroups:
+#   - name: expense
+#     instanceType: t2.micro
+#     desiredCapacity: 3
+#     spot: true
