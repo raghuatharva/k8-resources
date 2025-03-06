@@ -11,8 +11,9 @@ managedNodeGroups:
     instanceType: t2.micro
     desiredCapacity: 3
     spot: true
-    preBootstrapCommands:
-      - "/etc/eks/bootstrap.sh --max-pods 110 ${ClusterName}"
+    bootstrapArguments: "--use-max-pods false --max-pods=110"
+    # preBootstrapCommands:
+    #   - "/etc/eks/bootstrap.sh --max-pods 110 ${ClusterName}"
    # overrideBootstrapCommand: "/etc/eks/bootstrap.sh --max-pods 110 ${ClusterName}"
       
 
