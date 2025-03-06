@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx:20.0
+        image: rohanraghu/nginx:v1
 ---
 kind: Service
 apiVersion: v1
