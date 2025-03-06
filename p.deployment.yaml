@@ -28,6 +28,6 @@ spec:
     tier: mysql     # This is the label of the pod to which this service will route the traffic
   ports:
   - name: mysql-service
-    port: 80          # Service Port , this is for other containers to communicate with nginx container
-    targetPort: 80    # Container Port
+    port: 3306         # Service Port , this is for other containers to communicate with nginx container
+    targetPort: 3306    # Container Port
     protocol: TCP
