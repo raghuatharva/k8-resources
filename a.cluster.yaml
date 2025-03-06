@@ -17,6 +17,15 @@ managedNodeGroups:
    # overrideBootstrapCommand: "/etc/eks/bootstrap.sh --max-pods 110 ${ClusterName}"
       
 
+# COMMAND TO DELETE RESOURCES: aws cloudformation delete-stack --stack-name eksctl-Ist-cluster-cluster
+      # -- WHY ?
+        # because even though cluster is deleted , the resources are still there , so we need to delete the resources as well
+        # so we are deleting the resources using the above command.
+
+
+
+
+
   # by default, only 4 pods were created in each node , that were not sufficient 
   # since by default some kubernates related nodes already running , 
   #  so we are increasing the number of pods to 110
