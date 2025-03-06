@@ -11,8 +11,9 @@ managedNodeGroups:
     instanceType: t2.micro
     desiredCapacity: 3
     spot: true
-    overrideBootstrapCommand: |
-      /etc/eks/bootstrap.sh --max-pods 110 ${ClusterName}
+    overrideBootstrapCommand: 
+      - /etc/eks/bootstrap.sh --max-pods 110 ${ClusterName}
+      
 
   # by default, only 4 pods were created in each node , that were not sufficient 
   # since by default some kubernates related nodes already running , 
