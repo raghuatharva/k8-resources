@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx
+        image: nginx:20.0
 ---
 kind: Service
 apiVersion: v1
