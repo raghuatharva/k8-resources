@@ -1,0 +1,69 @@
+#  static ebs provisioning for the cluster -- NOT recommended for production use , use dynamic provisioning instead
+
+# 1. Create a PersistentVolume (PV) with the following specifications:
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: static-ebs-pv-csi
+spec:
+  capacity:
+    storage: 2Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: ebs.csi.aws.com
+    volumeHandle: vol-03079e572dc92f1ee  # replace with your EBS volume ID
+    fsType: ext4
+---
+
+# 2. Create a PersistentVolumeClaim (PVC) with the following specifications:
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: static-ebs-pvc
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  volumeName: static-ebs-pv-csi
+---
+
+# 3. Create a Pod and a Service with the following specifications:
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod
+  labels:
+    app: nginx
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      ports:
+        - containerPort: 80
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: ebs-volume
+  volumes:
+    - name: ebs-volume
+      persistentVolumeClaim:
+        claimName: static-ebs-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+

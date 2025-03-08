@@ -1,0 +1,9 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: Mass
+provisioner: ebs.csi.aws.com 
+# Note: Use "ebs.csi.aws.com" (CSI driver) or "kubernetes.io/aws-ebs" (in-tree driver) for AWS.
+reclaimPolicy: Retain
+volumeBindingMode: WaitForFirstConsumer # other options: Immediate
+
