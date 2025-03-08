@@ -18,6 +18,8 @@ metadata:
   labels:
     app: nginx
 spec:
+  # nodeSelector:
+  #   topology.kubernetes.io/zone: ap-south-1a
   containers:
     - name: nginx
       image: nginx:latest
@@ -36,6 +38,7 @@ kind: Service
 metadata:
   name: nginx-service
 spec:
+  type: LoadBalancer
   selector:
     app: nginx
   ports:

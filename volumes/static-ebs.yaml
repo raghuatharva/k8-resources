@@ -50,6 +50,8 @@ spec:
       volumeMounts:
         - mountPath: "/usr/share/nginx/html"
           name: ebs-volume
+  nodeSelector:
+      topology.kubernetes.io/zone: ap-south-1a
   volumes:
     - name: ebs-volume
       persistentVolumeClaim:
@@ -60,6 +62,7 @@ kind: Service
 metadata:
   name: nginx-service
 spec:
+  type: LoadBalancer
   selector:
     app: nginx
   ports:
