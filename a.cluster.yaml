@@ -12,7 +12,9 @@ managedNodeGroups:
     desiredCapacity: 3
     spot: true
   
-      
+# IF you delete workstation node and still your cluster is running , to access from diff. node
+#  aws eks update-kubeconfig --region <your-region> --name <your-cluster-name>
+
 
 # COMMAND TO DELETE RESOURCES: aws cloudformation delete-stack --stack-name eksctl-Ist-cluster-cluster
       # -- WHY ?

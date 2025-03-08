@@ -1,20 +1,31 @@
 #!/bin/bash
 set -e
 
-# Configurable variables
-CSI_VERSION="v1.6.0"  # Set the desired version here
-CSI_DRIVER="csi-driver-host-path"  # Selector for the driver
+# Check prerequisites
+if ! command -v git &>/dev/null; then
+    echo "Error: git is not installed. Please install git."
+    exit 1
+fi
 
-# Construct the download URL (using GitHub releases)
-DOWNLOAD_URL="https://github.com/kubernetes-csi/${CSI_DRIVER}/archive/refs/tags/${CSI_VERSION}.tar.gz"
-DOWNLOAD_DIR="./${CSI_DRIVER}-${CSI_VERSION}"
+if ! command -v kubectl &>/dev/null; then
+    echo "Error: kubectl is not installed. Please install kubectl."
+    exit 1
+fi
 
-echo "Downloading ${CSI_DRIVER} version ${CSI_VERSION}..."
-mkdir -p "${DOWNLOAD_DIR}"
-curl -L "${DOWNLOAD_URL}" -o "${DOWNLOAD_DIR}/driver.tar.gz"
+# Create a temporary work directory
+WORK_DIR=$(mktemp -d)
+echo "Created temporary directory: $WORK_DIR"
+cd "$WORK_DIR"
 
-echo "Extracting the CSI driver package..."
-tar -xzf "${DOWNLOAD_DIR}/driver.tar.gz" -C "${DOWNLOAD_DIR}"
-rm "${DOWNLOAD_DIR}/driver.tar.gz"
+# Clone the CSI Hostpath Driver repository
+echo "Cloning the CSI Hostpath driver repository..."
+git clone https://github.com/kubernetes-csi/csi-driver-host-path.git
 
-echo "Download and extraction complete! The CSI driver files are in ${DOWNLOAD_DIR}/"
+# Change to the Kubernetes standalone deploy directory
+cd csi-driver-host-path/deploy/kubernetes-standalone
+
+# Apply the driver manifests to your cluster
+echo "Deploying the CSI Hostpath driver to the Kubernetes cluster..."
+kubectl apply -f .
+
+echo "CSI Hostpath driver installation completed successfully!"
