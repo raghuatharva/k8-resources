@@ -8,7 +8,7 @@ provisioner: efs.csi.aws.com
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
 parameters:
-  provisioningMode: efs-ap     # EFS -ACCESS POINT ,it is used since we are using access point and mounting on /expense directory
-  fileSystemId: fs-0e3e3e3e
-  directoryPerms: "700"       # this is equivalent to chmod 777
-  mountPath: "/expense"       #we can use /expense/frontend or /expense/backend also so it stores data in organized way
+  provisioningMode: efs-ap            # EFS -ACCESS POINT ,it is used since we are using access point and mounting on /expense directory
+  fileSystemId: fs-0bc0ca4a6a76ebc9e  # EFS file system ID
+  directoryPerms: "700"               # this is equivalent to chmod 777
+  mountPath: "/expense"               # we can use /expense/frontend or /expense/backend also so it stores data in organized way
