@@ -28,8 +28,8 @@ spec:
     app: mysql
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 80
+      port: 3306
+      targetPort: 3306
 ---
 # persistent volume claim
 apiVersion: v1
