@@ -63,13 +63,13 @@ spec:
     metadata:
       labels:
         tier: mysql      # (This is the label of the pod) this label should be same as matchLabels of selector  
-  containers:
-    - name: db
-      image: rohanraghu/mysql:v1
-      volumeMounts:
+    containers:
+      - name: db
+        image: rohanraghu/mysql:v1
+        volumeMounts:
         - name: mysql-volume
           mountPath: /var/lib/mysql
-      volumes:
-        - name: mysql-volume
-          persistentVolumeClaim:
+        volumes:
+          - name: mysql-volume
+            persistentVolumeClaim:
             claimName: ebs-dynamic-pvc1
