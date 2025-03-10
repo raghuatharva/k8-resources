@@ -38,7 +38,7 @@ metadata:
   name: ebs-dynamic-pvc1
 spec:
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce
   storageClassName: ebs-sc1
   resources:
     requests:
