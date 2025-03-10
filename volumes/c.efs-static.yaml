@@ -12,7 +12,7 @@ spec:
      storage: 5Gi 
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-0bc0ca4a6a76ebc9e
+    volumeHandle: fs-0a3c25af0c2cff0f5
 ---
 
 # persistant volume claim defination
