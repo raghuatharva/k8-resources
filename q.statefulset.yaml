@@ -13,7 +13,6 @@ metadata:
   name: mysql-headless-service
 spec:
   clusterIP: None # HEADLESS SERVICE 
-  type: LoadBalancer
   ports:
     - protocol: TCP
       port: 3306
