@@ -70,7 +70,7 @@ spec:
         volumeMounts:
         - name: mysql-volume
           mountPath: /var/lib/mysql
-        volumes:
+      volumes:
           - name: mysql-volume
             persistentVolumeClaim:
             claimName: ebs-dynamic-pvc1
