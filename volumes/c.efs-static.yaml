@@ -7,10 +7,9 @@ spec:
   volumeMode: Filesystem
   accessModes:
     - ReadWriteMany
-  persistentVolumeReclaimPolicy: Retain
-  resources:  # mandatory field but efs wont limit the storage , we can give any value
-    requests:
-      storage: 5Gi 
+  persistentVolumeReclaimPolicy: Retain 
+  capacity:   # mandatory field but efs wont limit the storage , we can give any value
+     storage: 5Gi 
   csi:
     driver: efs.csi.aws.com
     volumeHandle: fs-0bc0ca4a6a76ebc9e
