@@ -1,15 +1,12 @@
----
+#persistantvolumeclaim
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: nginx-pvc1
+  name: efs-dynamic-pvc
 spec:
   accessModes:
-    - ReadWriteOnce
-  storageClassName: mass
-  resources:
-    requests:
-      storage: 2Gi
+    - ReadWriteMany
+  storageClassName: efs-sc
 ---
 apiVersion: v1
 kind: Pod
@@ -18,10 +15,8 @@ metadata:
   labels:
     app: nginx
 spec:
-  nodeSelector:
-    topology.kubernetes.io/zone: ap-south-1a
   containers:
-    - name: nginx
+    - name: nginx1
       image: nginx:latest
       ports:
         - containerPort: 80
@@ -31,7 +26,7 @@ spec:
   volumes:
     - name: nginx-volume
       persistentVolumeClaim:
-        claimName: nginx-pvc1
+        claimName: efs-dynamic-pvc
 ---
 apiVersion: v1
 kind: Service

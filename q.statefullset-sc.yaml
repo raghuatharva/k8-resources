@@ -1,0 +1,9 @@
+#storageclass for dynamic provisioning of stateful set
+
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: ebs-sc1
+provisioner: efs.csi.aws.com
+reclaimPolicy: Retain
+volumeBindingMode: waitForFirstConsumer

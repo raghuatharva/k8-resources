@@ -1,0 +1,77 @@
+#STATEFUL SET DEFINITION
+          # IT REQUIRES A HEADLESS SERVICE
+          # IT REQUIRES A EBS VOLUME , LETS CREATE EBS DYNAMICALLY , FOR THAT WE NEED
+          # STORAGE CLASS -----> PERSISTENT VOLUME 
+          # PERSISTENT VOLUME CLAIM
+          # STATEFUL SET - POD DEFINATION
+          # NORMAL SERVICE
+
+# HEADLESS SERVICE
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-headless-service
+spec:
+  clusterIP: None # HEADLESS SERVICE 
+  type: LoadBalancer
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+---
+# normal load balancer service
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-service
+spec:
+  type: LoadBalancer
+  selector:
+    app: mysql
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+---
+# persistent volume claim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ebs-dynamic-pvc1
+spec:
+  accessModes:
+    - ReadWriteMany
+  storageClassName: ebs-sc1
+    resources:
+    requests:
+      storage: 2Gi
+---
+# stateful set pod definition
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: db              # This is the label of the replicaset. This is used to identify the replicaset only.
+    tier: mysql
+spec:
+  serviceName: mysql-headless-service
+  replicas: 3               # Number of pods to be created
+  selector:
+    matchLabels:
+      tier: mysql        # This should be the label of the pod to which this replicaset will manage
+  template:
+    metadata:
+      labels:
+        tier: mysql      # (This is the label of the pod) this label should be same as matchLabels of selector  
+    spec:
+      containers:
+      - name: db
+        image: rohanraghu/mysql:v1
+      volumeMounts:
+        - name: mysql-volume
+          mountPath: /var/lib/mysql
+      volumes:
+        - name: mysql-volume
+          persistentVolumeClaim:
+            claimName: ebs-dynamic-pvc1

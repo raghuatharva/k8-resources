@@ -1,0 +1,61 @@
+# persistant volume defination
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: efs-static-pv
+spec:
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Retain
+  csi:
+    driver: efs.csi.aws.com
+    volumeHandle: -------------------
+---
+
+# persistant volume claim defination
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: efs-static-pvc
+spec:
+  accessModes:
+    - ReadWriteMany
+  volumeName: efs-static-pv       # name of the persistent volume
+---
+
+# pod defination
+apiVersion: v1
+kind: Pod
+metadata:
+  name: efs-static-pod
+  labels:
+    tier: frontend      # this is required to assign service as k8 connects on labels
+spec:
+  containers:
+    - name: nginx
+      image: nginx
+      volumeMounts:
+        - mountPath: "/usr/share/nginx/html"
+          name: efs-static-vol
+  volumes:
+    - name: efs-static-vol
+      persistentVolumeClaim:
+        claimName: efs-static-pvc
+---
+
+# service defination
+kind: Service
+apiVersion: v1
+metadata:
+  name: nginx
+spec:
+  type: LoadBalancer
+  selector:
+    tier: frontend
+  ports:
+  - name: nginx-svc-port
+    protocol: TCP
+    port: 80 # service port
+    targetPort: 80 # container port
+    nodePort: 30007
