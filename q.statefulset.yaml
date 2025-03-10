@@ -63,10 +63,9 @@ spec:
     metadata:
       labels:
         tier: mysql      # (This is the label of the pod) this label should be same as matchLabels of selector  
-    spec:
-      containers:
-      - name: db
-        image: rohanraghu/mysql:v1
+  containers:
+    - name: db
+      image: rohanraghu/mysql:v1
       volumeMounts:
         - name: mysql-volume
           mountPath: /var/lib/mysql
