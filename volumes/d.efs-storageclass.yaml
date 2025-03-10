@@ -12,3 +12,48 @@ parameters:
   fileSystemId: fs-0a3c25af0c2cff0f5  # EFS file system ID
   directoryPerms: "700"               # this is equivalent to chmod 777
   basePath: "/expense"               # we can use /expense/frontend or /expense/backend also so it stores data in organized way
+
+
+# each time we create a pvc , it will create a directory in efs file system with the pvc id 
+# this is happening because pv is created dynamically. 
+# fsap-03525bc94e5c21168
+# /expense/pvc-8f55a907-1aed-4163-8dba-3a716bb891a4
+# 50003 : 50003
+# 50003 : 50003 (700)
+#  Available
+# -
+# fsap-0107c1d8710fbe54b
+# /expense/pvc-60c951db-d545-483c-9095-745adee46bb7
+# 50004 : 50004
+# 50004 : 50004 (700)
+#  Available
+# -
+# fsap-0365ebe3470e1c161
+# /expense/pvc-164802a9-a9d9-40b4-afdf-60b013435b75
+# 50005 : 50005
+# 50005 : 50005 (700)
+#  Available
+# -
+# fsap-0c549624200c411b7
+# /expense/pvc-e34226d9-83bc-4cc7-af05-8d092cb79f5b
+# 50006 : 50006
+# 50006 : 50006 (700)
+#  Available
+# -
+# fsap-08b589998814500bf
+# /expense/pvc-f1821f32-3b97-44e1-908f-e5bb10e8d961
+
+#-----------------------SOLUTION--------------------------------#
+
+# Why is this happening?
+# Each time a new PVC is created, the EFS CSI driver dynamically provisions a new EFS Access Point 
+# and a new subdirectory inside /expense/. The directory is automatically named after the PVC UID, like:
+# /expense/pvc-8f55a907-1aed-4163-8dba-3a716bb891a4
+# Even if you delete and recreate the same-named PVC, Kubernetes assigns it a new UID, which results in a new EFS Access Point and a new mount path.
+
+# 🚀 How to Keep the Same Mount Path (Persistent Data)?
+# If you want all instances of the same PVC name to mount the same existing directory, do not use efs-ap (access points). Instead:
+# Manually create a PersistentVolume (PV) that points to a fixed directory inside EFS.
+# Bind your PersistentVolumeClaim (PVC) to that PV.
+
+
