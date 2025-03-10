@@ -47,7 +47,7 @@ spec:
 ---
 # stateful set pod definition
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: mysql
   labels:
