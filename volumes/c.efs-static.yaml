@@ -8,6 +8,9 @@ spec:
   accessModes:
     - ReadWriteMany
   persistentVolumeReclaimPolicy: Retain
+  resources:  # mandatory field but efs wont limit the storage , we can give any value
+    requests:
+      storage: 5Gi 
   csi:
     driver: efs.csi.aws.com
     volumeHandle: fs-0bc0ca4a6a76ebc9e
@@ -21,6 +24,9 @@ metadata:
 spec:
   accessModes:
     - ReadWriteMany
+  resources:
+    requests:
+      storage: 5Gi
   volumeName: efs-static-pv       # name of the persistent volume
 ---
 
