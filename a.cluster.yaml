@@ -9,10 +9,11 @@ metadata:
 managedNodeGroups:
   - name: expense
     instanceType: m5a.large
-    desiredCapacity: 3
+    desiredCapacity: 2
     spot: true
   
 # IF you delete workstation node and still your cluster is running , to access from diff. node
+
 #  aws eks update-kubeconfig --region <your-region> --name <your-cluster-name>
 
 
