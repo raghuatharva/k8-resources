@@ -1,3 +1,7 @@
+# so whats the drawback of replicaset --> it maintains 3 pods no matter what ; but what if we changed source code 
+# or a dockerfle;?
+# if we re apply to create again , then it says " NO Changes BUGGER, i have already 3 pods , i dont care whatever the fuck you do" 
+
 apiVersion: apps/v1
 kind: ReplicaSet
 metadata:
@@ -9,15 +13,18 @@ spec:
   replicas: 3               # Number of pods to be created
   selector:
     matchLabels:
-      tier: frontend        # This should be the label of the pod to which this replicaset will manage
+      tier: frontend        # ReplicaSet uses this pods to find existing pods that match.
   template:
     metadata:
       labels:
-        tier: frontend      # (This is the label of the pod) this label should be same as matchLabels of selector  
-    spec:
+        tier: frontend      # if the pods are less than 3 , then new pods will be created with this label; 
+    spec:                   # selector label should always be equal to template labels 
       containers:
       - name: nginx
         image: nginx
+
+
+
 ---
 kind: Service
 apiVersion: v1

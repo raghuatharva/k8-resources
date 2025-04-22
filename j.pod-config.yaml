@@ -28,7 +28,7 @@ spec:
           name: raghu-data    #configmap name
          
 
-# second way
+# second way #     env: 
 
 # apiVersion: v1
 # kind: Pod

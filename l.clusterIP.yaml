@@ -5,12 +5,11 @@ metadata:
 spec:
   selector:
     project: expense
-    environment: dev
+    component: frontend
   ports:
   - name: nginx-service
     port: 80          # Service Port , this is for other containers to communicate with nginx container
     targetPort: 80    # Container Port
-    protocol: TCP
 
 # ports:
 #   - port: 8080         # Like in docker  `-p 8080:80` (Service exposed inside cluster)

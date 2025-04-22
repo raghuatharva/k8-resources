@@ -40,15 +40,3 @@ managedNodeGroups:
 #   desired maxPods value, and that configuration is written into /etc/kubernetes/kubelet-config.json.
 
 
-# apiVersion: eksctl.io/v1alpha5
-# kind: ClusterConfig
-
-# metadata:
-#   name: Ist-cluster
-#   region: ap-south-1
-
-# managedNodeGroups:
-#   - name: expense
-#     instanceType: t2.micro
-#     desiredCapacity: 3
-#     spot: true

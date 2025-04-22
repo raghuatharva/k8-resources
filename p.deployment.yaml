@@ -13,11 +13,12 @@ spec:
   template:
     metadata:
       labels:
-        tier: mysql      # (This is the label of the pod) this label should be same as matchLabels of selector  
-    spec:
+        tier: mysql      # if the pods are less than 3 , then new pods will be created with this label; 
+    spec:                # selector label should always be equal to template labels 
       containers:
       - name: db
         image: rohanraghu/mysql:v1
+        
 ---
 kind: Service
 apiVersion: v1
