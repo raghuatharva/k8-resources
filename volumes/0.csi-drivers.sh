@@ -1,4 +1,4 @@
-#paste the following commands in the terminal
+#paste the following commands in the client terminal 
 
 #   this is for the EBS CSI driver
 kubectl apply -k "github.com/kubernetes-sigs/aws-ebs-csi-driver/deploy/kubernetes/overlays/stable/?ref=release-1.36"

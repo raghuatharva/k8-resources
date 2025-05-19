@@ -22,6 +22,7 @@ spec:
 
 #in ebs dynamic provisioning , mentionig selecter node az is not important , pod create ಆದ್ಮೇಲೆ ಅದುನ್ನ ನೋಡ್ಕೊಂಡು 
 # ebs volume pod  create  ಆಗಿದ್ az  ಅಲ್ಲೇ ಇದು create ಆಗುತ್ತೆ. why in storage class we mentioned [wait for first consumer] 
+# BUT WHAT IF THAT OLD POD GETS DELETED AND NEW POD CREATES IN SOME OTHER NODE ? THEN NODE SELECTOR HELPS 
   containers:
     - name: nginx
       image: nginx:latest

@@ -8,11 +8,18 @@ provisioner: efs.csi.aws.com
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer
 parameters:
-  provisioningMode: efs-ap            # EFS -ACCESS POINT ,it is used since we are using access point and mounting on /expense directory
+  provisioningMode: efs-ap            # efs-ap(ACCESS POINT) based provisioning is used since we are using access point and mounting on /expense directory
   fileSystemId: fs-0a3c25af0c2cff0f5  # EFS file system ID
   directoryPerms: "700"               # this is equivalent to chmod 777
-  basePath: "/expense"               # we can use /expense/frontend or /expense/backend also so it stores data in organized way
+  basePath: "/expense/backend"        # we can use /expense/frontend or /expense/backend also so it stores data in organized way
 
+
+# What the heck is efs-ap?
+# EFS Access Point (AP) = like a subfolder with its own permissions and user IDs in the EFS file system.
+
+# Think of it like this:
+# 🗂 Your EFS is a big folder (/)
+# 📁 Access Point = subfolder like /myapp/data, isolated, with its own settings
 
 # each time we create a pvc , it will create a directory in efs file system with the pvc id 
 # this is happening because pv is created dynamically. 
@@ -49,11 +56,15 @@ parameters:
 # Each time a new PVC is created, the EFS CSI driver dynamically provisions a new EFS Access Point 
 # and a new subdirectory inside /expense/. The directory is automatically named after the PVC UID, like:
 # /expense/pvc-8f55a907-1aed-4163-8dba-3a716bb891a4
+# That wont be a issue because new pvc details should be in different sub path but the problem is :
 # Even if you delete and recreate the same-named PVC, Kubernetes assigns it a new UID, which results in a new EFS Access Point and a new mount path.
 
+
 # 🚀 How to Keep the Same Mount Path (Persistent Data)?
-# If you want all instances of the same PVC name to mount the same existing directory, do not use efs-ap (access points). Instead:
-# Manually create a PersistentVolume (PV) that points to a fixed directory inside EFS.
+# If you want all instances of the same PVC name to mount the same existing directory,
+# do not use efs-ap (access points). it means dont use dynamic efs provisioning only 
+
+# USE STATIC EFS --> Manually create a PersistentVolume (PV) that points to a fixed directory inside EFS.
 # Bind your PersistentVolumeClaim (PVC) to that PV.
 
 

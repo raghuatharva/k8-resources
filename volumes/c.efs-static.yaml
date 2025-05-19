@@ -1,3 +1,7 @@
+#create access point while creating efs ; like /expense ; every data will be stored there from every pvc ;
+# i mean from every pod data 
+
+
 # persistant volume defination
 apiVersion: v1
 kind: PersistentVolume
@@ -12,7 +16,7 @@ spec:
      storage: 5Gi 
   csi:
     driver: efs.csi.aws.com
-    volumeHandle: fs-0a3c25af0c2cff0f5
+    volumeHandle: <efs-id>::<access-point-id> # here we link the access point 
 ---
 
 # persistant volume claim defination

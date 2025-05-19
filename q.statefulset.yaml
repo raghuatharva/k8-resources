@@ -18,7 +18,7 @@ spec:
       port: 3306
       targetPort: 3306
 ---
-# normal load balancer service
+# normal service to communicate between mysql pods 
 apiVersion: v1
 kind: Service
 metadata:
@@ -53,7 +53,7 @@ metadata:
     app: db              # This is the label of the replicaset. This is used to identify the replicaset only.
     tier: mysql
 spec:
-  serviceName: mysql-headless-service
+  serviceName: mysql-headless-service # this is the only change from kind: Deployment
   replicas: 2               # Number of pods to be created
   selector:
     matchLabels:

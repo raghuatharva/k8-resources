@@ -5,4 +5,4 @@ metadata:
 provisioner: ebs.csi.aws.com # Note: Use "ebs.csi.aws.com" (CSI driver) or "kubernetes.io/aws-ebs" (in-tree driver) for AWS.
 reclaimPolicy: Retain
 volumeBindingMode: WaitForFirstConsumer # other options: Immediate
-
+allowVolumeExpansion: True  #unlimited volumes can be used by pvc now: if pvc is 100gb , ebs now offers 100gb

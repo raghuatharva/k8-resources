@@ -1,10 +1,13 @@
 #  static ebs provisioning for the cluster -- NOT recommended for production use , use dynamic provisioning instead
 
 # 1. Create a PersistentVolume (PV) with the following specifications:
+
+# Firstly `ReadWriteOnce`  meaning  single EBS ==single node , its not only that 
+# `single  EBS == single pod`  also ; ReadWriteonce means exactly that .
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: static-ebs-pv-csi
+  name: static-ebs-pv
 spec:
   capacity:
     storage: 2Gi
@@ -30,7 +33,7 @@ spec:
   resources:
     requests:
       storage: 2Gi
-  volumeName: static-ebs-pv-csi
+  volumeName: static-ebs-pv
 ---
 
 # 3. Create a Pod and a Service with the following specifications:

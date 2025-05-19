@@ -1,7 +1,8 @@
 # daemon set without elastic search is of no use at all; 
+# in daemonset we dont mention replicas. by default it runs on each node.
 # daemon set collects all pod logs of that node ; 
 # logs should be sent to one central repo [ELASTIC SEARCH]; or else pod logs will be deleted once pod is removed 
-# these logs will be used to moniter pods , even nodes 
+# these logs will be used to moniter pods , even nodes in ELK 
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
